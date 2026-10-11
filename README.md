@@ -32,7 +32,7 @@ The builder checks the target runtime's actual skill directory, write method, ap
 ## Package contents
 
 ```text
-skill-builder/
+openclaw-skill-builder/
 ├── SKILL.md
 ├── README.md
 ├── references/
@@ -54,10 +54,10 @@ skill-builder/
 From the repository root, install the skill with:
 
 ```bash
-openclaw skills install . --as skill-builder
+openclaw skills install . --as openclaw-skill-builder
 ```
 
-You can then invoke it as `/skill-builder` where slash-command skill invocation is enabled, or describe the skill-authoring task normally.
+You can then invoke it as `/openclaw-skill-builder` where slash-command skill invocation is enabled, or describe the skill-authoring task normally.
 
 ## Validate a skill package
 

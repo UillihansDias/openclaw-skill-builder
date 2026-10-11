@@ -1,5 +1,5 @@
 ---
-name: skill-builder
+name: openclaw-skill-builder
 description: "Create, convert, review, repair, validate, and package OpenClaw AgentSkills from prompts, capability descriptions, or existing skill folders. Use for SKILL.md-centred skill architecture, prompt-to-skill conversion, package audits, installable ZIP exports, OpenClaw integration, and minimal support-file design. Do not use for prompt polishing alone unless the user explicitly requests prompt optimisation."
 ---
 

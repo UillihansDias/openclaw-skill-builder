@@ -1,69 +1,87 @@
-# Agent Skill Builder
+# OpenClaw Skill Builder
 
-A meta-skill and packaging framework for creating, converting, reviewing, repairing, and validating OpenClaw AgentSkills.
+An OpenClaw meta-skill for turning reusable capabilities into clear, maintainable AgentSkills. It can create a skill from a task description, convert a prompt or source material into a skill, review or repair an existing package, validate its structure, and prepare a package for installation or export.
 
-Designed to turn loose user prompts, documentation, or workflows into minimal, high-craft, self-contained OpenClaw skill packages following canonical specification standards.
+The builder focuses on usable agent behaviour: clear triggers, an ordered workflow, safe boundaries, correct runtime details, and a verifiable output. It removes repeated or unsupported prompt language and keeps each package as small as the task allows.
 
----
+## What it does
 
-## Capabilities
+- **Create:** define a reusable capability, its audience, trigger, workflow, limits, and completion criteria.
+- **Convert:** extract durable rules and procedures from prompts, notes, files, URLs, or existing skills. Preserve important requirements and identify conflicts or omissions.
+- **Review and repair:** compare intended behaviour with the current package, find the smallest effective correction, and update only what is in scope.
+- **Validate:** check skill naming, frontmatter, linked resources, package structure, scripts, hooks, and requested export contents.
+- **Integrate and package:** add runtime-specific integration only when it is needed; keep creation, installation, enabling, and publishing as separate actions.
+- **Capture reusable workflows:** after substantial work, save a narrow skill only when the procedure is reusable, evidenced, and not already covered.
 
-- **Prompt-to-Skill Conversion**: Transforms raw system prompts or task instructions into modular, standardized AgentSkills.
-- **Skill Architecture & Linting**: Enforces frontmatter standards, instruction altitude, trigger routing, and reference decoupling.
-- **Automated Validation**: Built-in CLI validation harness to verify structural integrity, schema compliance, and script executability.
-- **Canonical Meta-Prompt**: Comprehensive architectural framework (`🦞 AGENT-SKILL-BUILDER-CANONICAL-META-PROMPT.md`) for bootstrapping skills across any engineering domain.
+## When to use it
 
----
+Use the builder when you want an OpenClaw skill created or improved, or when you need to convert reusable instructions into a skill package. It is not a general prompt-polishing tool unless you ask for prompt optimisation. A completed task does not automatically justify a new skill.
 
-## Directory Structure
+## How autonomous capture works
+
+The skill contains a decision process for saving useful workflows. It does not run itself after every task: OpenClaw loads skills when they are relevant, so an always-available workspace instruction, supported system prompt, or runtime event hook must provide the reminder to check for reusable workflows. The builder does not add that trigger, hooks, or workspace policy unless the integration is requested.
+
+This keeps three activities separate:
+
+1. **Autonomous capture:** preserve a successful, reusable workflow discovered during substantial work.
+2. **User-directed conversion:** create a skill from material that you explicitly provide.
+3. **Runtime maintenance:** let a configured curator review or consolidate skills, if the target runtime supports it.
+
+The builder checks the target runtime's actual skill directory, write method, approval controls, and packaging rules. It does not assume that another agent's commands or settings apply to OpenClaw.
+
+## Package contents
 
 ```text
 skill-builder/
-├── README.md                                          # Framework documentation and usage
-├── SKILL.md                                           # Core skill builder instructions and modes
+├── SKILL.md
+├── README.md
 ├── references/
-│   ├── canonical-rules.md                             # Architectural guidelines & frontmatter rules
-│   └── templates.md                                   # Reusable templates for skills, hooks, and references
+│   ├── canonical-rules.md
+│   └── templates.md
 ├── scripts/
-│   └── validate_skill.py                              # Skill package validation CLI
-└── 🦞 AGENT-SKILL-BUILDER-CANONICAL-META-PROMPT.md    # Master meta-prompt for autonomous skill generation
+│   └── validate_skill.py
+└── 🦞 AGENT-SKILL-BUILDER-CANONICAL-META-PROMPT.md
 ```
 
----
+- `SKILL.md` is the operational entrypoint and workflow.
+- `references/canonical-rules.md` covers OpenClaw runtime facts, package profiles, and integration boundaries.
+- `references/templates.md` provides optional templates for skill files, hooks, and package responses.
+- `scripts/validate_skill.py` checks a target skill package.
+- The canonical meta-prompt is a detailed design reference for complex skill-authoring work.
 
-## Skill Validation Harness
+## Install
 
-Verify any OpenClaw skill package with `validate_skill.py`:
+From the repository root, install the skill with:
 
 ```bash
-# Validate a target skill directory
-python3 scripts/validate_skill.py /path/to/target-skill
+openclaw skills install . --as skill-builder
+```
 
-# Strict validation mode
+You can then invoke it as `/skill-builder` where slash-command skill invocation is enabled, or describe the skill-authoring task normally.
+
+## Validate a skill package
+
+```bash
+python3 scripts/validate_skill.py /path/to/target-skill
+```
+
+Use strict mode for additional checks:
+
+```bash
 python3 scripts/validate_skill.py --strict /path/to/target-skill
 ```
 
-The validator audits:
-- YAML frontmatter completeness (`name`, `description`, metadata)
-- Directory structure (assets, references, scripts, hooks)
-- Executable permissions on helper scripts
-- Markdown links and reference anchors
+The validator checks package structure and metadata. A structural pass does not prove that a skill behaves correctly in every runtime; behavioural checks are separate and should use realistic tasks when required.
 
----
+## Design principles
 
-## Core Principles of Good Skills
+1. **Make the entrypoint operational:** `SKILL.md` must say when to use the skill, what to do, and what counts as complete.
+2. **Preserve intent, not prompt theatre:** keep useful constraints and decision rules; remove repetition, impossible guarantees, and hidden-reasoning demands.
+3. **Use the smallest reliable package:** add references, scripts, or hooks only when they improve execution.
+4. **Respect the target runtime:** verify supported metadata, paths, tools, and event hooks instead of assuming them.
+5. **Keep authority clear:** local skill creation, installation, external publication, and shared-resource changes are distinct actions.
+6. **Report evidence honestly:** distinguish files written, structural checks, runtime loading, and observed behaviour.
 
-1. **SKILL.md is the Kernel**: The primary document holds the core operational contract, triggers, and execution phases. Supporting documentation belongs in `references/`.
-2. **Altitude Over Patching**: Address root capability design rather than layering superficial prompt hacks.
-3. **Evidence-Driven**: Include concrete verification commands and output expectations.
-4. **Minimal Blast Radius**: Avoid unnecessary dependencies, state mutations, or global tool assumptions.
+## Scope
 
----
-
-## Installation in OpenClaw
-
-```bash
-openclaw skills install ./skill-builder --as skill-builder
-```
-
-Skill entry point: [`SKILL.md`](SKILL.md).
+This repository provides skill-authoring guidance and a package validator. It does not grant tools or permissions, install itself automatically, add a post-task trigger, or publish skills to a registry. Those actions depend on the user's OpenClaw setup and explicit workflow.

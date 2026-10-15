@@ -118,6 +118,8 @@ When logging is justified, initialise mutable files under `.learnings/` in the w
 
 Distinguish OpenClaw lifecycle hooks from shell, Git, editor, or provider hooks. Use the hook system appropriate to the target runtime. A bootstrap reminder should be brief, operational, and skipped for sub-agent sessions when recursion is possible.
 
+Before promising hook behaviour, verify the current event contract and the handler's actual data access and capabilities. An event firing alone does not imply transcript access, semantic task-completion detection, or authority/API access to create or modify skills. Unless those are explicitly supported and verified, treat the hook as a trigger or reminder only.
+
 ## Installation and Publishing
 
 Native installation and separate registry publishing are different workflows. Do not invent registry metadata. Include publishing files only when the user names the target and those files are required.

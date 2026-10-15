@@ -11,15 +11,17 @@ The builder focuses on usable agent behaviour: clear triggers, an ordered workfl
 - **Review and repair:** compare intended behaviour with the current package, find the smallest effective correction, and update only what is in scope.
 - **Validate:** check skill naming, frontmatter, linked resources, package structure, scripts, hooks, and requested export contents.
 - **Integrate and package:** add runtime-specific integration only when it is needed; keep creation, installation, enabling, and publishing as separate actions.
-- **Capture reusable workflows:** after substantial work, save a narrow skill only when the procedure is reusable, evidenced, and not already covered.
+- **Capture reusable workflows:** after substantial work, assess whether the method is reusable beyond the task, supported by evidence or a bounded procedure, and not already covered. Turn only qualifying workflows into a narrow skill.
 
 ## When to use it
 
 Use the builder when you want an OpenClaw skill created or improved, or when you need to convert reusable instructions into a skill package. It is not a general prompt-polishing tool unless you ask for prompt optimisation. A completed task does not automatically justify a new skill.
 
-## How autonomous capture works
+## Evidence-based autonomous capture
 
-The skill contains a decision process for saving useful workflows. It does not run itself after every task: OpenClaw loads skills when they are relevant, so an always-available workspace instruction, supported system prompt, or runtime event hook must provide the reminder to check for reusable workflows. The builder does not add that trigger, hooks, or workspace policy unless the integration is requested.
+A distinctive capability is helping an agent preserve its own successful work as reusable skills. When an always-available workspace instruction, supported system prompt, or verified runtime hook invokes the builder after substantial work, it evaluates whether the workflow is meaningfully multi-step, reusable beyond the original task, supported by evidence or a bounded procedure, and not already covered by another skill. If it qualifies, the builder can create or update a narrowly scoped skill in the target runtime's verified skill directory; otherwise, it recommends no capture. The result is selective learning from demonstrated work, not a new skill for every completed task.
+
+“Autonomous” describes the agent's assessment and capture once invoked—not an always-running background monitor. OpenClaw loads skills when relevant, so an always-available instruction or supported runtime integration must supply the reminder. The builder does not silently add that trigger, install hooks, change workspace policy, or publish skills unless that integration is requested.
 
 This keeps three activities separate:
 
